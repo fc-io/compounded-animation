@@ -1,15 +1,18 @@
 import React from 'react'
 
+let runningType = 'add-animation'
 let running = []
 let buffer = []
-let runningType = 'add-animation'
 
 const timeout = (a) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       console.log('animation done callback:', a.type)
+      a.setState(({animationsRun}) => {
+        return {animationsRun: [...animationsRun, a.type]}
+      })
       resolve()
-    }, 1000)
+    }, 200)
   })
 }
 
@@ -60,11 +63,15 @@ const c = coroutine(dataConsumer)
 const genObj = c()
 
 export default class Hello extends React.Component {
+  componentWillMount() {
+    this.setState({animationsRun: []})
+  }
   add() {
-    genObj.next({type: 'add-animation', genObj})
+    // console.log(this.state)
+    genObj.next({type: 'add-animation', setState: this.setState.bind(this), genObj})
   }
   move() {
-    genObj.next({type: 'move-animation', genObj})
+    genObj.next({type: 'move-animation', setState: this.setState.bind(this), genObj})
   }
   exit() {
     genObj.next(false)
@@ -72,9 +79,16 @@ export default class Hello extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.add}>add</button>
-        <button onClick={this.move}>move</button>
-        <button onClick={this.exit}>exit</button>
+        <div>
+          <button id="add" onClick={this.add.bind(this)}>add</button>
+          <button id="move" onClick={this.move.bind(this)}>move</button>
+          <button id="exit" onClick={this.exit.bind(this)}>exit</button>
+        </div>
+        <div className="animationsRun">
+          {this.state.animationsRun.map((type, i) => {
+            return <div key={i}>{type}</div>
+          })}
+        </div>
       </div>
     )
   }
