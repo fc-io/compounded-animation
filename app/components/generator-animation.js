@@ -7,12 +7,12 @@ let buffer = []
 const timeout = (a) => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('animation done callback:', a.type)
+      console.log(`generator done callback:${a.type}`, (new Date()).getSeconds())
       a.setState(({animationsRun}) => {
         return {animationsRun: [...animationsRun, a.type]}
       })
       resolve()
-    }, 200)
+    }, 1000)
   })
 }
 
@@ -24,10 +24,10 @@ const awaitAnimations = (a) => {
       const aBuffer = buffer
       buffer = []
       running = []
+      if (runningType === null) {
+        runningType = aB[0].type
+      }
       aBuffer.forEach((aB) => {
-        if (runningType === null) {
-          runningType = aB.type
-        }
         aB.genObj.next(aB)
       })
     })
@@ -37,6 +37,7 @@ const awaitAnimations = (a) => {
 const dataConsumer = function* () {
   while (true) { // eslint-disable-line
     const a = yield
+    console.log('dataConsumer', a.type)
     if (a.type === runningType) {
       running.push(timeout(a))
     } else if (a) {
@@ -47,7 +48,7 @@ const dataConsumer = function* () {
     }
   }
 
-  console.log('ex')
+  console.log('generator stop')
   return 'dataConsumer exit!'
 }
 

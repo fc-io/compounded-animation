@@ -2,6 +2,6 @@ import './css/style.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Animation from './components/animation'
+import App from './components/app'
 
-ReactDOM.render(<Animation />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
