@@ -10,7 +10,7 @@ const timeout = (callback) => {
   })
 }
 
-test('async buffer.push x2 should proved results in order', (t) => {
+test('async buffer.push x2 should provide results in order', (t) => {
   t.plan(1)
   const buffer = create()
   const callbackResults = []
@@ -32,10 +32,26 @@ test('async buffer.push x2 should proved results in order', (t) => {
   })
 })
 
-test('async buffer.push x6 should proved results in order', (t) => {
-  t.plan(1)
+test('async buffer.push x6 should provide results in order', (t) => {
+  t.plan(3)
   const buffer = create()
   const callbackResults = []
+
+  setTimeout(() => {
+    t.deepEqual(callbackResults, [
+      '1',
+      '1',
+    ])
+  }, 150)
+
+  setTimeout(() => {
+    t.deepEqual(callbackResults, [
+      '1',
+      '1',
+      '2',
+      '2',
+    ])
+  }, 250)
 
   setTimeout(() => {
     t.deepEqual(callbackResults, [
