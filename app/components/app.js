@@ -1,14 +1,14 @@
 import React from 'react'
-import GeneratorAnimation from './generator-animation'
-import AsyncAwaitAnimation from './async-await-animation'
+// import GeneratorAnimation from './generator-animation'
+import PromiseAnimation from './promise-animation'
 
 export default () => {
   return (
     <div>
-      Generator
-      <GeneratorAnimation />
-      Async Await
-      <AsyncAwaitAnimation />
+      {/* Generator */}
+      {/* <GeneratorAnimation /> */}
+      Promise
+      <PromiseAnimation />
     </div>
   )
 }

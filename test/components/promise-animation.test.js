@@ -1,10 +1,10 @@
 import React from 'react'
 import test from 'blue-tape'
 import {shallow} from 'enzyme'
-import AsyncAwaitAnimation from '../../app/components/async-await-animation'
+import PromiseAnimation from '../../app/components/promise-animation'
 
 test('animations to run in order', (t) => {
-  const animationComponent = shallow(<AsyncAwaitAnimation />)
+  const animationComponent = shallow(<PromiseAnimation />)
 
   animationComponent.find('#add').simulate('click')
   animationComponent.find('#add').simulate('click')
