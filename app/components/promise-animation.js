@@ -1,5 +1,5 @@
 import React from 'react'
-import {create, push} from '../promise-buffer'
+import {create, push} from '../utils/promise-buffer'
 
 const timeout = (msg, setState) => {
   return new Promise((resolve) => {

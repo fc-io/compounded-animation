@@ -1,6 +1,6 @@
 export const create = () => {
   return {
-    runningType: 'add-animation',
+    runningType: undefined,
     running: [],
     waiting: [],
   }
